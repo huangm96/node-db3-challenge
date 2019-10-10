@@ -48,11 +48,21 @@ function update(changes, id) {
 }
 
 function remove(id) {
-  return (
-    db("schemes")
-      .where({ id })
-      .del() || null
-  );
+  return db("schemes")
+    .where({ id })
+    .first()
+    .then(scheme => {
+      if (!scheme) {
+        return null;
+      }
+      return db("schemes")
+        .where({ id })
+        .del()
+        .then(() => {
+          return scheme;
+        });
+    });
+
 }
 
 function addStep(step, scheme_id) {
