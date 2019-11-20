@@ -1,9 +1,11 @@
-require("dotenv").config();
 const express = require("express");
-const axios = require("axios");
-const cors = require("cors");
-const zipcodes = require("zipcodes");
 const helmet = require("helmet");
+const cors = require("cors");
+
+
+
+const axios = require("axios");
+
 
 const SchemeRouter = require("./schemes/scheme-router.js");
 
@@ -13,10 +15,9 @@ server.use(helmet());
 server.use(express.json());
 server.use("/api/schemes", SchemeRouter);
 
-
-server.get('/', (req, res) => {
-  res.status(200).json("Weather testing");
-})
+server.get("/", (req, res) => {
+  res.json({ message: "WELCOME TO Weather" });
+});
 server.post("/weather", (req, res) => {
   // const api_key =
   //   process.env.WEATHER_API_KEY;
@@ -42,7 +43,6 @@ server.post("/weather", (req, res) => {
   //     console.log(e);
   //   });
 
-  console.log(process.env.WEATHER_API_KEY);
   const api_key = process.env.WEATHER_API_KEY;
   axios
     .get(
