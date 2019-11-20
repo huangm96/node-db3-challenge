@@ -11,7 +11,9 @@ server.use(cors());
 
 server.use(express.json());
 server.use("/api/schemes", SchemeRouter);
-
+server.get('/', (req, res) => {
+  res.status(200).json("Weather testing");
+})
 server.post("/weather", (req, res) => {
   // const api_key =
   //   process.env.WEATHER_API_KEY;
