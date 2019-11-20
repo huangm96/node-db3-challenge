@@ -3,14 +3,17 @@ const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
 const zipcodes = require("zipcodes");
+const helmet = require("helmet");
 
 const SchemeRouter = require("./schemes/scheme-router.js");
 
 const server = express();
 server.use(cors());
-
+server.use(helmet());
 server.use(express.json());
 server.use("/api/schemes", SchemeRouter);
+
+
 server.get('/', (req, res) => {
   res.status(200).json("Weather testing");
 })
@@ -43,7 +46,7 @@ server.post("/weather", (req, res) => {
   const api_key = process.env.WEATHER_API_KEY;
   axios
     .get(
-      `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${api_key}/${req.body.latitude},${req.body.longitude}`
+      `https://api.darksky.net/forecast/${api_key}/${req.body.latitude},${req.body.longitude}`
     )
     .then(response => {
       //console.log(zipcodes.lookup(90210));
