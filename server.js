@@ -15,7 +15,7 @@ server.use('/api/schemes', SchemeRouter);
 
 server.post('/weather', (req, res) => {
   const api_key = process.env.WEATHER_API_KEY;
-  const testURL = `https://api.darksky.net/forecast/${api_key}/${req.body.latitude},${req.body.longitude}`;
+  const testURL = `https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/${api_key}/${req.body.latitude},${req.body.longitude}`;
   const myInit = {
     method: "HEAD",
     mode: "no-cors"
